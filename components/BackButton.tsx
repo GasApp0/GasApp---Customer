@@ -22,12 +22,14 @@ const BackButton = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   button: {
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor : '#F6F6F6',
+    width : 40
   },
 });
 

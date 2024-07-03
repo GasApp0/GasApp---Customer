@@ -2,11 +2,14 @@ import { Image, StyleSheet, Platform, View, Text } from 'react-native';
 import SplashScreen from '../Screens/SplashScreen';
 import Onboarding from '../Screens/Onboarding';
 import GeneralDetails from '../Screens/GeneralDetails';
+import SelectHostel from '../Screens/SelectHostel';
+import Home from '../Screens/Home';
+import SelectCylinder from '../Screens/SelectCylinder';
 
 export default function HomeScreen() {
   return (
     <View style={styles.main}>
-      <GeneralDetails/>
+      <SelectCylinder />
     </View>
   );
 }
