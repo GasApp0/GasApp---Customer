@@ -1,24 +1,19 @@
-import { Image, StyleSheet, Platform, View, Text } from 'react-native';
-import SplashScreen from '../Screens/SplashScreen';
-import Onboarding from '../Screens/Onboarding';
-import GeneralDetails from '../Screens/GeneralDetails';
-import SelectHostel from '../Screens/SelectHostel';
-import Home from '../Screens/Home';
-import SelectCylinder from '../Screens/SelectCylinder';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import MainNav from './MainNav'; // Assuming MainNav contains your app's navigation logic and screens
 
-export default function HomeScreen() {
+export default function index() {
   return (
     <View style={styles.main}>
-      <SelectCylinder />
+      <MainNav />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   main: {
-   flex : 1,
-   paddingHorizontal: 16,
-   backgroundColor : 'white',
-   paddingTop : 24
-  }
+    flex: 1,
+    backgroundColor: 'white',
+    
+  },
 });

@@ -2,8 +2,12 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
+import { useNavigation } from '@react-navigation/native';
 
-export default function GeneralDetails({ navigation }) {
+export default function GeneralDetails() {
+
+  const navigation = useNavigation()
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -11,6 +15,7 @@ export default function GeneralDetails({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  {/*
   const handleNext = () => {
     // Perform validation
     if (password !== confirmPassword) {
@@ -20,7 +25,7 @@ export default function GeneralDetails({ navigation }) {
     }
     // Perform other validation or necessary operations before navigating
     navigation.navigate('SelectHostel');
-  };
+  };*/}
 
   return (
     <View style={styles.main}>
@@ -90,7 +95,7 @@ export default function GeneralDetails({ navigation }) {
         </View>
         <PrimaryButton 
           title="Next"
-          onPress={handleNext}
+          onPress={() => navigation.navigate('SelectHostel')}
         />
       </View>
     </View>
@@ -101,7 +106,9 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: 'white',
-    gap : 16
+    gap : 16,
+    paddingHorizontal : 16,
+    paddingTop :12
   },
   header: {
     flexDirection: 'row',

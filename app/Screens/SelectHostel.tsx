@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import Svg, { Path } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
 
 const hostels = [
   { id: '1', name: 'Evandy - Annex' },
@@ -14,7 +15,8 @@ const hostels = [
   { id: '7', name: 'Georgia Hostel' },
 ];
 
-export default function SelectHostel({ navigation }) {
+export default function SelectHostel() {
+  const navigation = useNavigation();
   const [selectedHostel, setSelectedHostel] = useState('');
   const [searchText, setSearchText] = useState('');
 
@@ -22,13 +24,6 @@ export default function SelectHostel({ navigation }) {
     setSelectedHostel(hostelId === selectedHostel ? '' : hostelId);
   };
 
-  const handleProceed = () => {
-    if (!selectedHostel) {
-      Alert.alert('Error', 'Please select a hostel');
-      return;
-    }
-    navigation.navigate('Home', { hostel: selectedHostel });
-  };
 
   return (
     <View style={styles.main}>
@@ -73,7 +68,7 @@ export default function SelectHostel({ navigation }) {
         ))}
       </View>
       <View style={styles.footer}>
-        <PrimaryButton title="Continue" onPress={handleProceed} />
+        <PrimaryButton title="Continue" onPress={() => navigation.navigate('Home')} />
       </View>
     </View>
   );
@@ -83,12 +78,15 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: 'white',
-    gap : 12
+    gap : 12,
+    paddingHorizontal : 16,
+    paddingTop :24
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: '80%',
+    paddingBottom : 12
   },
   headerTitle: {
     fontSize: 20,
@@ -112,12 +110,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAFAFA',
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     marginBottom: 8,
   },
   sectionSubtitle: {
-    fontSize: 14,
+    fontSize: 16,
     color: 'rgba(0, 0, 0, 0.50)',
     marginBottom: 16,
   },
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderWidth: 1,
     borderRadius: 12,
-    borderColor: 'rgba(0, 0, 0, 0.20)',
+    borderColor: 'rgba(0, 0, 0, 0.10)',
     marginBottom: 8,
   },
   selectedHostelContainer: {
@@ -148,7 +146,8 @@ const styles = StyleSheet.create({
     borderColor : 'rgba(0, 0, 0, 0.20)',
     bottom : '0%',
     position : 'static',
-    backgroundColor : 'white'
+    backgroundColor : 'white',
+    alignSelf: 'stretch'
   },
   hostelName: {
     fontSize: 16,

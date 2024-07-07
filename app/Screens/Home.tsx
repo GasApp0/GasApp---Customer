@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Platform, View, Text, TextInput,FlatList, TouchableOpacity ,ScrollView  } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import React, { useState } from 'react';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 const inputFields = [
@@ -12,7 +12,8 @@ const inputFields = [
   amount: 'GH12 /fill',
   title : 'Emergency Offer',
   body : "We understand that running out of LPG can be an unexpected hassle. That's why we're excited to introduce our Emergency LPG Refill Offer! Get your LPG cylinder delivered to your doorstep within 20 minutes, guaranteed!",
-  route : 'SelectCylinder'
+  route : 'SelectCylinder',
+  price : 12
   },
   
   { id: '2', 
@@ -22,6 +23,7 @@ const inputFields = [
   amount: 'GH10 /fill',
   title : 'Regular Offer',
   body : "Enjoy the convenience of having your LPG cylinder delivered to your home from 2pm to 4pm! We ensure timely deliveries so you can plan your day without any disruptions.",
+  price: 10
   },
 
   { id: '3', 
@@ -32,12 +34,13 @@ const inputFields = [
   amount: ' GH7 /Month',
   title : 'Monthly Offer',
   body : "Say goodbye to the hassle of frequent LPG orders with GasApp's Monthly Subscription Offer. Get your LPG cylinder delivered to your doorstep every month, hassle-free!",
+  price  :7
   }
 
 ];
 
 export default function Home() {
-
+  const navigation = useNavigation()
 
   return (
     <View style={styles.main}>
@@ -112,7 +115,10 @@ export default function Home() {
   keyExtractor={(item) => item.id}
   renderItem={({ item }) => (
     <TouchableOpacity onPress={() => {
-      navigation.navigate(item.route);
+      navigation.navigate(item.route, {
+        offerName: item.title,
+        offerPrice: item.price,
+      });
     }}>
       <View style={styles.container}>
         <View style={styles.col1}>
@@ -162,12 +168,12 @@ const styles = StyleSheet.create({
   main: {
     flexDirection: 'column',
     alignItems : 'flex-start',
-    gap : 40,
+    gap : 30,
     flex : 1,
     alignSelf : 'stretch',
-    paddingHorizontal : 16,
     backgroundColor : 'white',
-    paddingTop : 16
+    paddingHorizontal : 16,
+    paddingTop :30
   },
   container : {
     flexDirection : 'column',

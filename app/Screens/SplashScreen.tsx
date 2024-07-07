@@ -1,40 +1,24 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook from react-navigation
 
 export default function SplashScreen() {
   const [isReady, setIsReady] = useState(false);
+  const navigation = useNavigation(); // Initialize navigation hook
 
   useEffect(() => {
-    async function prepare() {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-        // Load any resources or data that you need prior to rendering the app
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setIsReady(true);
-        await SplashScreen.hideAsync();
-      }
-    }
+    const timer = setTimeout(() => {
+      setIsReady(true);
+      navigation.navigate('Onboarding'); // Navigate to Onboarding screen after 2 seconds
+    }, 2000); // Wait for 2 seconds
 
-    prepare();
-  }, []);
-
-
+    return () => clearTimeout(timer); // Cleanup timer if component unmounts
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Text style={{
-        fontWeight : '700',
-        fontSize : 40
-      }}>Gas</Text>
-        <Text style={{
-        fontWeight : '700',
-        fontSize : 40,
-        color : 'rgba(0, 0, 0, 0.50)'
-      }}>App</Text>
+      <Text style={styles.text}>Gas</Text>
+      <Text style={[styles.text, { color: 'rgba(0, 0, 0, 0.50)' }]}>App</Text>
     </View>
   );
 }
@@ -45,6 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection : 'row'
+    flexDirection: 'row',
+  },
+  text: {
+    fontWeight: '700',
+    fontSize: 40,
   },
 });
