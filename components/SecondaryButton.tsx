@@ -34,14 +34,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontWeight: '600',
-    fontSize : 16
+    fontSize: 16
   },
   selectedButton: {
-    borderColor: '#52B922',
-    backgroundColor: '#E6F8E0',
+    backgroundColor: '#000', // Blue
   },
   selectedButtonText: {
-    color: '#52B922',
+    color: 'white', // Change text color to white when selected
   },
 });
 
