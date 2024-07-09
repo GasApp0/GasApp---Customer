@@ -61,6 +61,9 @@ export default function Home() {
     fetchFirstName();
   }, []);
 
+
+  
+
   return (
     <View style={styles.main}>
       <View style = {{

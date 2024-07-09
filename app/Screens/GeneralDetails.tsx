@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity,Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function GeneralDetails() {
   const navigation = useNavigation();
@@ -27,15 +28,30 @@ export default function GeneralDetails() {
     nextRef.current.focus();
   };
 
-  // Function to handle form submission (e.g., navigate to next screen)
-  const handleSignUp = () => {
-    // Perform validation
+  // Function to handle form submission
+  const handleSignUp = async () => {
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
-    // Perform other validation or necessary operations before navigating
-    navigation.navigate('SelectHostel');
+
+    // Save user details to AsyncStorage
+    try {
+      const userDetails = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        userId: email, // using email as userId for simplicity
+      };
+      await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
+      await AsyncStorage.setItem('userId', email);
+
+      navigation.navigate('SelectHostel');
+    } catch (error) {
+      console.error('Error saving user details:', error);
+      Alert.alert('Error', 'An error occurred while saving your details. Please try again.');
+    }
   };
 
   return (
@@ -89,7 +105,6 @@ export default function GeneralDetails() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-     
       />
       <Text style={styles.label}>Confirm Password</Text>
       <TextInput
@@ -98,7 +113,6 @@ export default function GeneralDetails() {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
-     
       />
       <PrimaryButton title="Next" onPress={handleSignUp} />
       <View style={styles.text}>
@@ -148,4 +162,3 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
 });
-
