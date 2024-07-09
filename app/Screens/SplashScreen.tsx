@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook from react-navigation
+import { useNavigation } from '@react-navigation/native';
+import { auth } from './../../firebaseConfig'; // Import your Firebase auth instance
 
 export default function SplashScreen() {
   const [isReady, setIsReady] = useState(false);
-  const navigation = useNavigation(); // Initialize navigation hook
+  const navigation = useNavigation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsReady(true);
-      navigation.navigate('Onboarding'); // Navigate to Onboarding screen after 2 seconds
-    }, 2000); // Wait for 2 seconds
+    const checkAuthentication = async () => {
+      // Check if there's a currently authenticated user
+      const currentUser = auth.currentUser;
+      setIsReady(true); // Set isReady to true regardless of authentication status
+      
+      if (currentUser) {
+        // If user is authenticated, navigate to Home screen
+        navigation.navigate('Home');
+      } else {
+        // If user is not authenticated, navigate to Onboarding screen after 2 seconds
+        setTimeout(() => {
+          navigation.navigate('Onboarding');
+        }, 2000); // Wait for 2 seconds before navigating
+      }
+    };
 
-    return () => clearTimeout(timer); // Cleanup timer if component unmounts
+    checkAuthentication();
+
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   return (

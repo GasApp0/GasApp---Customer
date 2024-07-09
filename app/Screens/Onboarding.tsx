@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook from react-navigation
 import PrimaryButton from '@/components/PrimaryButton';
 
@@ -18,9 +18,11 @@ export default function Onboarding() {
                     fontSize : 16,
                     color : '#828282'
                 }}>Already have an Account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                 <Text style={{
                     fontSize : 16,
                 }}>Sign In</Text>
+                </TouchableOpacity>
             </View>
         </View>
         

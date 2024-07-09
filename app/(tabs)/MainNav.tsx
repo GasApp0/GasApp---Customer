@@ -8,6 +8,7 @@ import SelectCylinder from '../Screens/SelectCylinder';
 import ConfirmLocation from '../Screens/ConfirmLocation';
 import Amount from '../Screens/Amount';
 import Payment from '../Screens/Payment';
+import SignIn from '../Screens/SignIn'
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ export default function MainNav() {
     <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
-      {/*<Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />*/}
+      <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
       <Stack.Screen name="GeneralDetails" component={GeneralDetails} options={{ headerShown: false }} />
       <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />

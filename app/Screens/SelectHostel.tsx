@@ -18,33 +18,25 @@ const hostels = [
 export default function SelectHostel() {
   const navigation = useNavigation();
   const [selectedHostel, setSelectedHostel] = useState('');
-  const [searchText, setSearchText] = useState('');
 
+  // Function to handle hostel selection
   const handleSelectHostel = (hostelId) => {
     setSelectedHostel(hostelId === selectedHostel ? '' : hostelId);
   };
 
+  // Function to handle pressing Continue button
+  const handleContinue = () => {
+    navigation.navigate('Home');
+  };
+
+  // Enable Continue button only if a hostel is selected
+  const isButtonDisabled = !selectedHostel;
 
   return (
     <View style={styles.main}>
       <View style={styles.header}>
         <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.headerTitle}>Select Hostel</Text>
-      </View>
-      <View style={styles.inputWrapper}>
-        <Text style={styles.label}>Search Hostel</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Search Hostel"
-          value={searchText}
-          onChangeText={setSearchText}
-        />
-      </View>
-      <View>
-        <Text style={styles.sectionTitle}>Available Hostels</Text>
-        <Text style={styles.sectionSubtitle}>
-          In case your hostel is not included, select the closest hostel.
-        </Text>
       </View>
       <View style={styles.hostelWrapper}>
         {hostels.map((hostel) => (
@@ -68,7 +60,7 @@ export default function SelectHostel() {
         ))}
       </View>
       <View style={styles.footer}>
-        <PrimaryButton title="Continue" onPress={() => navigation.navigate('Home')} />
+        <PrimaryButton title="Continue" onPress={handleContinue} disabled={isButtonDisabled} />
       </View>
     </View>
   );
@@ -78,46 +70,21 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: 'white',
-    gap : 12,
-    paddingHorizontal : 16,
-    paddingTop :24
+    paddingHorizontal: 16,
+    paddingTop: 24,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: '80%',
-    paddingBottom : 12
+    paddingBottom: 12,
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '700',
     marginLeft: 16,
   },
-  inputWrapper: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 16,
-    color: 'rgba(0, 0, 0, 0.80)',
-    marginBottom: 8,
-  },
-  input: {
-    height: 50,
-    borderColor: 'rgba(0, 0, 0, 0.20)',
-    borderWidth: 1,
-    padding: 8,
-    borderRadius: 12,
-    backgroundColor: '#FAFAFA',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  sectionSubtitle: {
-    fontSize: 16,
-    color: 'rgba(0, 0, 0, 0.50)',
-    marginBottom: 16,
+  hostelWrapper: {
+    marginTop: 16,
   },
   hostelContainer: {
     flexDirection: 'row',
@@ -141,13 +108,15 @@ const styles = StyleSheet.create({
     height: 24,
   },
   footer: {
-    paddingTop : 12,
-    borderTopWidth : 1,
-    borderColor : 'rgba(0, 0, 0, 0.20)',
-    bottom : '0%',
-    position : 'static',
-    backgroundColor : 'white',
-    alignSelf: 'stretch'
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.20)',
   },
   hostelName: {
     fontSize: 16,

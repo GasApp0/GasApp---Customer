@@ -1,13 +1,13 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,Alert } from 'react-native';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import { useNavigation } from '@react-navigation/native';
 
 export default function GeneralDetails() {
+  const navigation = useNavigation();
 
-  const navigation = useNavigation()
-
+  // State variables for input fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,100 +15,107 @@ export default function GeneralDetails() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  {/*
-  const handleNext = () => {
+  // Refs for managing focus
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneNumberRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+
+  // Function to handle navigation to the next input field
+  const handleNext = (nextRef) => {
+    nextRef.current.focus();
+  };
+
+  // Function to handle form submission (e.g., navigate to next screen)
+  const handleSignUp = () => {
     // Perform validation
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match');
       return;
-      return;
     }
     // Perform other validation or necessary operations before navigating
     navigation.navigate('SelectHostel');
-  };*/}
+  };
 
   return (
-    <View style={styles.main}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.headerTitle}>General Details</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>First Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your first name"
-            value={firstName}
-            onChangeText={setFirstName}
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Last Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your last name"
-            value={lastName}
-            onChangeText={setLastName}
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your email"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Phone Number</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your phone number"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            keyboardType="phone-pad"
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={styles.label}>Confirm Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm your password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry
-          />
-        </View>
-        <PrimaryButton 
-          title="Next"
-          onPress={() => navigation.navigate('SelectHostel')}
-        />
+      <Text style={styles.label}>First Name</Text>
+      <TextInput
+        style={styles.input}
+        value={firstName}
+        onChangeText={setFirstName}
+        returnKeyType="next"
+        onSubmitEditing={() => handleNext(lastNameRef)}
+      />
+      <Text style={styles.label}>Last Name</Text>
+      <TextInput
+        ref={lastNameRef}
+        style={styles.input}
+        value={lastName}
+        onChangeText={setLastName}
+        returnKeyType="next"
+        onSubmitEditing={() => handleNext(emailRef)}
+      />
+      <Text style={styles.label}>Email</Text>
+      <TextInput
+        ref={emailRef}
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        returnKeyType="next"
+        onSubmitEditing={() => handleNext(phoneNumberRef)}
+      />
+      <Text style={styles.label}>Phone Number</Text>
+      <TextInput
+        ref={phoneNumberRef}
+        style={styles.input}
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
+        keyboardType="phone-pad"
+        returnKeyType="next"
+        onSubmitEditing={() => handleNext(passwordRef)}
+      />
+      <Text style={styles.label}>Password</Text>
+      <TextInput
+        ref={passwordRef}
+        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+     
+      />
+      <Text style={styles.label}>Confirm Password</Text>
+      <TextInput
+        ref={confirmPasswordRef}
+        style={styles.input}
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+     
+      />
+      <PrimaryButton title="Next" onPress={handleSignUp} />
+      <View style={styles.text}>
+        <Text style={{ fontSize: 16, color: '#828282' }}>Are you new here?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('GeneralDetails')}>
+          <Text style={{ fontSize: 16 }}>Sign Up</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  container: {
     flex: 1,
+    padding: 16,
     backgroundColor: 'white',
-    gap : 16,
-    paddingHorizontal : 16,
-    paddingTop :12
   },
   header: {
     flexDirection: 'row',
@@ -120,16 +127,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
   },
-  inputContainer: {
-    flex: 1,
-    width: '100%',
-  },
-  inputWrapper: {
-    marginBottom: 16,
-  },
   label: {
     fontSize: 16,
-    color: 'rgba(0, 0, 0, 0.80)',
     marginBottom: 8,
   },
   input: {
@@ -139,5 +138,14 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 12,
     backgroundColor: '#FAFAFA',
+    marginBottom: 16,
+  },
+  text: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    marginTop: 12,
   },
 });
+

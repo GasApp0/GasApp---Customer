@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Platform, View, Text, TextInput,FlatList, TouchableOpacity ,ScrollView  } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -23,7 +23,8 @@ const inputFields = [
   amount: 'GH10 /fill',
   title : 'Regular Offer',
   body : "Enjoy the convenience of having your LPG cylinder delivered to your home from 2pm to 4pm! We ensure timely deliveries so you can plan your day without any disruptions.",
-  price: 10
+  price: 10,
+  route : 'SelectCylinder',
   },
 
   { id: '3', 
@@ -34,13 +35,31 @@ const inputFields = [
   amount: ' GH7 /Month',
   title : 'Monthly Offer',
   body : "Say goodbye to the hassle of frequent LPG orders with GasApp's Monthly Subscription Offer. Get your LPG cylinder delivered to your doorstep every month, hassle-free!",
-  price  :7
+  price  :7,
+  route : 'SelectCylinder',
   }
 
 ];
 
 export default function Home() {
   const navigation = useNavigation()
+
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    async function fetchFirstName() {
+      try {
+        const storedFirstName = await AsyncStorage.getItem('firstName');
+        if (storedFirstName !== null) {
+          setFirstName(storedFirstName);
+        }
+      } catch (error) {
+        console.error('Error retrieving first name:', error);
+      }
+    }
+
+    fetchFirstName();
+  }, []);
 
   return (
     <View style={styles.main}>
@@ -49,9 +68,7 @@ export default function Home() {
            alignItems: 'center',
            justifyContent: 'space-between',
            alignSelf : 'stretch',
-           
-
-      }}>
+          }}>
             <View style ={{
           flexDirection : 'row',
           alignItems : 'center',
@@ -71,7 +88,7 @@ export default function Home() {
               fontWeight : '600',
               fontSize : 16
              
-            }}>Hello Chris 👋</Text>
+            }}>Hello {firstName} 👋</Text>
 
             <Text style ={{
               fontSize : 12,
