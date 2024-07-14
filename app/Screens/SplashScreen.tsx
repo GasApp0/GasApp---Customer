@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from './../../firebaseConfig'; // Import your Firebase auth instance
+import { FIREBASE_AUTH } from './../../firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function SplashScreen() {
-  const [isReady, setIsReady] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const checkAuthentication = async () => {
-      // Check if there's a currently authenticated user
-      const currentUser = auth.currentUser;
-      setIsReady(true); // Set isReady to true regardless of authentication status
-      
-      if (currentUser) {
-        // If user is authenticated, navigate to Home screen
-        navigation.navigate('Home');
-      } else {
-        // If user is not authenticated, navigate to Onboarding screen after 2 seconds
-        setTimeout(() => {
+    const timer = setTimeout(() => {
+      onAuthStateChanged(FIREBASE_AUTH, (user) => {
+        if (user) {
+          navigation.navigate('Insidelayout');
+        } else {
           navigation.navigate('Onboarding');
-        }, 2000); // Wait for 2 seconds before navigating
-      }
-    };
-
-    checkAuthentication();
+        }
+      });
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

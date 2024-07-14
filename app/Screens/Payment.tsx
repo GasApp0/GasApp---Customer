@@ -64,7 +64,7 @@ export default function Payment() {
           <Text style={{ color: 'rgba(0, 0, 0, 0.60)' }}>Total Cost</Text>
           <Text>GHC {totalCost}.00</Text>
         </View>
-        <PrimaryButton title={'Make Payment'} route={''} />
+        <PrimaryButton title={'Make Payment'} onPress={() => navigation.navigate('Tracker')} />
       </View>
     </View>
   );

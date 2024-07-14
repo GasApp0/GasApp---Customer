@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { auth } from './../../firebaseConfig';
+import { auth, FIREBASE_AUTH } from './../../firebaseConfig';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
+
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState('');
+  const auth = FIREBASE_AUTH
 
    const handleSignIn = async () => {
+    setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('User signed in!');
-      navigation.navigate('Home'); // Navigate to your main app screen after signing in
+      const response = await signInWithEmailAndPassword (auth, email, password)
+      console.log(response)
     } catch (error) {
       console.error('Error signing in: ', error);
+      alert('Sign in failed:' + error.message);
+    } finally{
+      setLoading(false)
     }
   };
   
+
 
   return (
     <View style={styles.container}>

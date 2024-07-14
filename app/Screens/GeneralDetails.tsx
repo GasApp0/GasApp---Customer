@@ -4,6 +4,8 @@ import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FIREBASE_AUTH } from './../../firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function GeneralDetails() {
   const navigation = useNavigation();
@@ -35,22 +37,26 @@ export default function GeneralDetails() {
       return;
     }
 
-    // Save user details to AsyncStorage
+    // Sign up the user with Firebase
     try {
+      const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      const user = userCredential.user;
+
+      // Save user details to AsyncStorage
       const userDetails = {
         firstName,
         lastName,
         email,
         phoneNumber,
-        userId: email, // using email as userId for simplicity
+        userId: user.uid,
       };
       await AsyncStorage.setItem('userDetails', JSON.stringify(userDetails));
-      await AsyncStorage.setItem('userId', email);
+      await AsyncStorage.setItem('userId', user.uid);
 
       navigation.navigate('SelectHostel');
     } catch (error) {
-      console.error('Error saving user details:', error);
-      Alert.alert('Error', 'An error occurred while saving your details. Please try again.');
+      console.error('Error signing up:', error);
+      Alert.alert('Error', 'An error occurred while signing up. Please try again.');
     }
   };
 
@@ -117,8 +123,8 @@ export default function GeneralDetails() {
       <PrimaryButton title="Next" onPress={handleSignUp} />
       <View style={styles.text}>
         <Text style={{ fontSize: 16, color: '#828282' }}>Are you new here?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('GeneralDetails')}>
-          <Text style={{ fontSize: 16 }}>Sign Up</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Text style={{ fontSize: 16 }}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -135,11 +141,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 16,
-    gap: '80%',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '700',
+    flex: 1,
+    textAlign: 'center',
   },
   label: {
     fontSize: 16,
