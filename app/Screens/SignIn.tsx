@@ -50,7 +50,7 @@ const SignIn = ({ navigation }) => {
         secureTextEntry
       />
       {/*<Button title="Sign In" onPress={handleSignIn} />*/}
-      <PrimaryButton title=' Sign In' onPress={handleSignIn}  />
+      <PrimaryButton title='Sign In' onPress={handleSignIn}  />
       <View style={styles.text}>
                 <Text style={{
                     fontSize : 16,

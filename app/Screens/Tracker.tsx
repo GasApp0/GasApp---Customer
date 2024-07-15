@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from 'react-native-paper';
-
+import MapView, { Marker } from 'react-native-maps';
 
 
 
@@ -12,7 +12,7 @@ export default function Tracker() {
 
   return (
     <View style={styles.main}>
-      <View style = {{
+      {/*<View style = {{
            flexDirection: 'row',
            alignItems: 'center',
            justifyContent: 'space-between',
@@ -52,7 +52,7 @@ export default function Tracker() {
         <Path d="M15.02 19.06C15.02 20.71 13.67 22.06 12.02 22.06C11.2 22.06 10.44 21.72 9.89999 21.18C9.35999 20.64 9.01999 19.88 9.01999 19.06" stroke="#828282" stroke-width="2" stroke-miterlimit="10"/>
       </Svg>
 
-      </View>
+      </View>*/}
 
       <View style ={{
         flexDirection : 'column',
@@ -80,7 +80,10 @@ export default function Tracker() {
             <View style={{
               flexDirection : 'row',
               gap : 12,
-              alignItems : 'flex-start'
+              alignItems : 'flex-start',
+              alignSelf : 'stretch',
+              width : 'auto',
+              
             }}> 
              <View style={{
               padding : 16,
@@ -229,7 +232,8 @@ export default function Tracker() {
               borderStyle :'dashed',
               borderRadius : 50,
               borderColor : 'rgba(0, 0, 0, 0.10)',
-              alignSelf : 'stretch'
+              alignSelf : 'stretch',
+              width : 'auto',
              }}>
                 <Svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" fill="none">
                 <Path d="M8.0933 5.08008H4.57997C3.33997 5.08008 3.05997 5.70009 2.90664 6.46676L2.33997 9.16675H10.34L9.77331 6.46676C9.60664 5.70009 9.3333 5.08008 8.0933 5.08008Z" stroke="black" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -243,7 +247,8 @@ export default function Tracker() {
                 </Svg>
               </View>
              <View style ={{
-              gap : 4
+              gap : 4,
+               alignSelf : 'stretch'
              }}>
               <Text>Refill Completion </Text>
               <Text style={{
@@ -254,9 +259,30 @@ export default function Tracker() {
              </View>
         </View>
 
+        <View style={{
+         borderRadius : 24,
+         marginTop : 70,
+       
+        height : 420
+      }}>
+        <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 6.6881525,
+          longitude: -1.5556953,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{ latitude: 6.6881525, longitude: -1.5556953 }}
+          title="Marker Title"
+          description="Marker Description"
+        />
+      </MapView>
       </View>
-        
-           
+
+      </View>
 
     </View>
   );
@@ -296,6 +322,14 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)'
-  }
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    alignSelf : 'stretch',
+    
+    
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+    borderRadius : 24
+  },
 });
