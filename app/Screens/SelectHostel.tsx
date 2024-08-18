@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import Svg, { Path } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
+import { HostelContext } from './HostelContext';
 
 const hostels = [
-  { id: '1', name: 'Evandy - Annex' },
-  { id: '2', name: 'Evandy - New Site' },
-  { id: '3', name: 'Evandy - Bomso' },
-  { id: '4', name: 'Victory Towers' },
-  { id: '5', name: 'Suncity Hostel' },
-  { id: '6', name: 'Adombi Hostel' },
-  { id: '7', name: 'Georgia Hostel' },
+  { id: '1', name: 'Evandy - Annex', latitude: 6.67815, longitude: -1.56287  },
+  { id: '2', name: 'Evandy - New Site', latitude: 5.6389, longitude: -0.1876  },
+  { id: '3', name: 'Evandy - Bomso', latitude: 6.67322, longitude: -1.55734  },
+  { id: '4', name: 'Victory Towers', latitude: 6.67618, longitude: -1.56236  },
+  { id: '5', name: 'Suncity Hostel', latitude: 6.68885, longitude: -1.55496  },
+  { id: '6', name: 'Adombi Hostel', latitude: 6.67224, longitude: -1.56094  },
+  { id: '7', name: 'Georgia Hostel', latitude: 6.68744, longitude: -1.55667  },
 ];
 
 export default function SelectHostel() {
   const navigation = useNavigation();
-  const [selectedHostel, setSelectedHostel] = useState('');
+  const { setSelectedHostel } = useContext(HostelContext); // Access context
+  const [selectedHostelId, setSelectedHostelId] = useState('');
 
   // Function to handle hostel selection
   const handleSelectHostel = (hostelId) => {
-    setSelectedHostel(hostelId === selectedHostel ? '' : hostelId);
+    const hostel = hostels.find(h => h.id === hostelId);
+    setSelectedHostel(hostel); // Save the selected hostel in context
+    setSelectedHostelId(hostelId);
   };
 
   // Function to handle pressing Continue button
@@ -30,7 +34,7 @@ export default function SelectHostel() {
   };
 
   // Enable Continue button only if a hostel is selected
-  const isButtonDisabled = !selectedHostel;
+  const isButtonDisabled = !setSelectedHostel;
 
   return (
     <View style={styles.main}>
@@ -44,14 +48,14 @@ export default function SelectHostel() {
             key={hostel.id}
             style={[
               styles.hostelContainer,
-              selectedHostel === hostel.id && styles.selectedHostelContainer,
+              selectedHostelId === hostel.id && styles.selectedHostelContainer,
             ]}
             onPress={() => handleSelectHostel(hostel.id)}
           >
-            <Text style={[styles.hostelName, selectedHostel === hostel.id && styles.selectedHostelName]}>
+            <Text style={[styles.hostelName,  selectedHostelId === hostel.id && styles.selectedHostelName]}>
               {hostel.name}
             </Text>
-            {selectedHostel === hostel.id && (
+            {selectedHostelId === hostel.id && (
               <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style={styles.selectedIcon}>
                 <Path d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z" fill="black"/>
               </Svg>

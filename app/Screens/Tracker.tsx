@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
-
+import { HostelContext } from './HostelContext';
 
 
 export default function Tracker() {

@@ -4,7 +4,6 @@ import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import SecondaryButton from '@/components/SecondaryButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
 export default function SelectCylinder() {
   const [selectedSmall, setSelectedSmall] = useState(false); // Track selected state for Small Size
   const [selectedMedium, setSelectedMedium] = useState(false); // Track selected state for Medium Size

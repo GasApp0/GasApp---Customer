@@ -20,6 +20,7 @@ const InsideStack = createNativeStackNavigator();
 function Insidelayout() {
   return (
     <InsideStack.Navigator>
+      <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
       <InsideStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <InsideStack.Screen name="SelectCylinder" component={SelectCylinder} options={{ headerShown: false }} />
       <InsideStack.Screen name="ConfirmLocation" component={ConfirmLocation} options={{ headerShown: false }} />

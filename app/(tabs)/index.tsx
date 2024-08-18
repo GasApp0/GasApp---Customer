@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MainNav from './MainNav'; // Assuming MainNav contains your app's navigation logic and screens
+import { HostelProvider } from '../Screens/HostelContext';
 
 export default function index() {
   return (
-    <View style={styles.main}>
-      <MainNav />
-    </View>
+    <HostelProvider>
+        <View style={styles.main}>
+            <MainNav />
+        </View>
+    </HostelProvider>
   );
 }
 
