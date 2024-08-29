@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Platform, View, Text, TextInput,FlatList, TouchableOpacity ,ScrollView  } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
@@ -9,50 +9,10 @@ import { HostelContext } from './HostelContext';
 
 export default function Tracker() {
   const [progress, setProgress] = useState(0.5);
+  const { selectedHostel } = useContext(HostelContext);
 
   return (
     <View style={styles.main}>
-      {/*<View style = {{
-           flexDirection: 'row',
-           alignItems: 'center',
-           justifyContent: 'space-between',
-           alignSelf : 'stretch',
-          }}>
-            <View style ={{
-          flexDirection : 'row',
-          alignItems : 'center',
-          gap : 8
-        }}>
-          <View style={{
-            width : 40,
-            height : 40,
-            borderRadius : 40,
-            backgroundColor : '#f5f5f5f5'
-          }}></View>
-          <View style = {{
-            flexDirection : 'column',
-            gap : 4
-          }}>
-            <Text style ={{
-              fontWeight : '600',
-              fontSize : 16
-             
-            }}>Hello 👋</Text>
-
-            <Text style ={{
-              fontSize : 12,
-              color : '#4F4F4F)'
-            }}>Let’s fill your LPG for you in less that 5 minutes</Text>
-          </View>
-            </View>
-
-            <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <Path d="M12.02 2.90997C8.71003 2.90997 6.02003 5.59997 6.02003 8.90997V11.8C6.02003 12.41 5.76003 13.34 5.45003 13.86L4.30003 15.77C3.59003 16.95 4.08003 18.26 5.38003 18.7C9.69003 20.14 14.34 20.14 18.65 18.7C19.86 18.3 20.39 16.87 19.73 15.77L18.58 13.86C18.28 13.34 18.02 12.41 18.02 11.8V8.90997C18.02 5.60997 15.32 2.90997 12.02 2.90997Z" stroke="#828282" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
-        <Path d="M13.87 3.2C13.56 3.11 13.24 3.04 12.91 3C11.95 2.88 11.03 2.95 10.17 3.2C10.46 2.46 11.18 1.94 12.02 1.94C12.86 1.94 13.58 2.46 13.87 3.2Z" stroke="#828282" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-        <Path d="M15.02 19.06C15.02 20.71 13.67 22.06 12.02 22.06C11.2 22.06 10.44 21.72 9.89999 21.18C9.35999 20.64 9.01999 19.88 9.01999 19.06" stroke="#828282" stroke-width="2" stroke-miterlimit="10"/>
-      </Svg>
-
-      </View>*/}
 
       <View style ={{
         flexDirection : 'column',
@@ -73,7 +33,7 @@ export default function Tracker() {
             <Text style={{
               fontSize : 14,
               color : 'rgba(0, 0, 0, 0.60)'
-            }}>Enjoy real time track system as your Gas cylinder get filled</Text>
+            }}>Let’s fill your LPG for you in less that 5 minutes </Text>
         </View>
 
         <View style={styles.tracker}>
@@ -104,7 +64,9 @@ export default function Tracker() {
                 </Svg>
               </View>
              <View style ={{
-              gap : 4
+              gap : 4,
+              width : '70%',
+              
              }}>
               <Text>Rider will arrive at your location soon</Text>
               <Text style={{
@@ -224,7 +186,8 @@ export default function Tracker() {
               flexDirection : 'row',
               gap : 12,
               alignItems : 'flex-start',
-              top : 50
+              top : 50,
+             
             }}> 
              <View style={{
               padding : 16,
@@ -248,7 +211,8 @@ export default function Tracker() {
               </View>
              <View style ={{
               gap : 4,
-               alignSelf : 'stretch'
+               alignSelf : 'stretch',
+               width : '70%'
              }}>
               <Text>Refill Completion </Text>
               <Text style={{
@@ -268,26 +232,27 @@ export default function Tracker() {
         <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 6.6881525,
-          longitude: -1.5556953,
+          latitude: 6.67618, longitude: -1.56236,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
         <Marker
-          coordinate={{ latitude: 6.6881525, longitude: -1.5556953 }}
+          coordinate={{latitude: selectedHostel.latitude, longitude: selectedHostel.longitude, }}
           title="Marker Title"
           description="Marker Description"
         />
+        
       </MapView>
       </View>
-
+        
       </View>
 
     </View>
   );
 }
-
+///     latitude: hostelDetails?.location?.latitude || 0,
+///     longitude: hostelDetails?.location?.longitude || 0,
 
 const styles = StyleSheet.create({
   main: {
