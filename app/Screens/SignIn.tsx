@@ -13,11 +13,13 @@ const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState('');
   const auth = FIREBASE_AUTH
 
+  const isButtonDisabled = email === '' || password === ''
    const handleSignIn = async () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword (auth, email, password)
       console.log(response)
+      navigation.navigate('SelectHostel')
     } catch (error) {
       console.error('Error signing in: ', error);
       alert('Sign in failed:' + error.message);
@@ -32,7 +34,7 @@ const SignIn = ({ navigation }) => {
     <View style={styles.container}>
        <View style={styles.header}>
         <BackButton onPress={() => navigation.goBack()} />
-        <Text style={styles.headerTitle}>General Details</Text>
+        <Text style={styles.headerTitle}>Sign In</Text>
       </View>
       <Text style={styles.label}>Email</Text>
       <TextInput
@@ -50,13 +52,13 @@ const SignIn = ({ navigation }) => {
         secureTextEntry
       />
       {/*<Button title="Sign In" onPress={handleSignIn} />*/}
-      <PrimaryButton title='Sign In' onPress={handleSignIn}  />
+      <PrimaryButton title='Sign In' onPress={handleSignIn} disabled={isButtonDisabled}  />
       <View style={styles.text}>
                 <Text style={{
                     fontSize : 16,
                     color : '#828282'
                 }}>Are you new here?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('GeneralDetails')}>
+                <TouchableOpacity onPress={handleSignIn}>
                 <Text style={{
                     fontSize : 16,
                 }}>Sign Up</Text>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 16,
-    gap: '80%',
+    gap: '110%',
   },
   headerTitle: {
     fontSize: 20,

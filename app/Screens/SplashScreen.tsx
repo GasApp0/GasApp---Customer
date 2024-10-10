@@ -11,7 +11,7 @@ export default function SplashScreen() {
     const timer = setTimeout(() => {
       onAuthStateChanged(FIREBASE_AUTH, (user) => {
         if (user) {
-          navigation.navigate('Insidelayout');
+          navigation.navigate('Home');
         } else {
           navigation.navigate('Onboarding');
         }

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import { useNavigation } from '@react-navigation/native';
@@ -66,6 +66,8 @@ export default function GeneralDetails() {
         <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.headerTitle}>General Details</Text>
       </View>
+
+      <ScrollView style={styles.scrollContainer} bounces={false}>
       <Text style={styles.label}>First Name</Text>
       <TextInput
         style={styles.input}
@@ -120,6 +122,7 @@ export default function GeneralDetails() {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
+       </ScrollView>
       <PrimaryButton title="Next" onPress={handleSignUp} />
       <View style={styles.text}>
         <Text style={{ fontSize: 16, color: '#828282' }}>Are you new here?</Text>
@@ -168,4 +171,8 @@ const styles = StyleSheet.create({
     gap: 4,
     marginTop: 12,
   },
+  scrollContainer: {
+    maxHeight: '55%',
+    overflow: 'hidden',
+  }
 });
