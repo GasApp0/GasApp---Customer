@@ -4,46 +4,49 @@ import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import SecondaryButton from '@/components/SecondaryButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
+
 export default function SelectCylinder() {
-  const [selectedSmall, setSelectedSmall] = useState(false); // Track selected state for Small Size
-  const [selectedMedium, setSelectedMedium] = useState(false); // Track selected state for Medium Size
+  const [selectedSmall, setSelectedSmall] = useState(false); 
+  const [selectedMedium, setSelectedMedium] = useState(false); 
   const [price, setPrice] = useState('n/a');
   const [totalCost, setTotalCost] = useState(0);
 
   const handlePressSmall = () => {
     setSelectedSmall(!selectedSmall);
-    setSelectedMedium(false); // Ensure only one size is selected at a time
+    setSelectedMedium(false);
     if (!selectedSmall) {
       setPrice('GHC 3.00');
-      calculateTotalCost('GHC 3.00'); // Calculate total cost based on selected size
+      calculateTotalCost('GHC 3.00'); 
     } else {
       setPrice('n/a');
-      setTotalCost(0); // Reset total cost if deselected
+      setTotalCost(0); 
     }
   };
 
   const handlePressMedium = () => {
     setSelectedMedium(!selectedMedium);
-    setSelectedSmall(false); // Ensure only one size is selected at a time
+    setSelectedSmall(false); 
     if (!selectedMedium) {
       setPrice('GHC 6.00');
-      calculateTotalCost('GHC 6.00'); // Calculate total cost based on selected size
+      calculateTotalCost('GHC 6.00');
     } else {
       setPrice('n/a');
-      setTotalCost(0); // Reset total cost if deselected
+      setTotalCost(0); 
     }
   };
 
   const calculateTotalCost = (selectedPrice) => {
-    let offerPrice = parseFloat(route.params.offerPrice); // Convert offer price to float
-    let cylinderCost = parseFloat(selectedPrice.split(' ')[1]); // Extract cylinder cost from selectedPrice
+    let offerPrice = parseFloat(route.params.offerPrice);
+    let cylinderCost = parseFloat(selectedPrice.split(' ')[1]); 
     let total = offerPrice + cylinderCost;
     setTotalCost(total);
   };
 
   const navigation = useNavigation();
   const route = useRoute();
-  const { offerName, offerPrice } = route.params;
+  const { offerName, offerPrice, offerId } = route.params;
+
+  const isButtonDisabled = !selectedMedium && !selectedSmall
 
   return (
     <View style={styles.main}>
@@ -99,6 +102,7 @@ export default function SelectCylinder() {
         <PrimaryButton
           title={'Continue'}
           onPress={() => navigation.navigate('ConfirmLocation', { offerName, offerPrice, totalCost, price })}
+          disabled={isButtonDisabled}
         />
       </View>
     </View>

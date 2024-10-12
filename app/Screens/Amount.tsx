@@ -5,10 +5,14 @@ import BackButton from '@/components/BackButton';
 import SecondaryButton from '@/components/SecondaryButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
+import Slider from '@react-native-community/slider';
 
 export default function Amount() {
   const [amount, setAmount] = useState(''); 
   const [totalCost, setTotalCost] = useState(0); 
+  const [sliderValue, setSliderValue] = useState(0)
+  const [selectedKg, setSelectedKg] = useState(2)
+  const [pricePerKg, setPricePerKg] = useState(5)
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -37,7 +41,18 @@ export default function Amount() {
     setTotalCost(calculatedTotalCost);
   }, [amount, offerPrice, price]);
 
+  const handleSliderChange = (value) => {
+    setSliderValue(value)
 
+    const kg = 2 + Math.round(value * 22)
+    setSelectedKg(kg)
+
+    const calculatedPrice = kg * pricePerKg
+    setAmount(calculatedPrice.toFixed(2))
+  }
+
+
+const isButtonDisabled = !amount
 
   return (
     <View style={styles.main}>
@@ -58,6 +73,104 @@ export default function Amount() {
         />
       </View>
     
+      <View style={{
+        flexDirection : 'row',
+        gap : 8,
+        alignItems : 'center',
+        justifyContent : 'space-between'
+      }}>
+        <View style={{
+          width : 170,
+          height : 1,
+          justifyContent : 'space-between',
+          backgroundColor : 'rgba(0,0,0,0.2)'
+        }}></View>
+
+        <Text>OR</Text>
+
+        <View style={{
+          width : 170,
+          height : 1,
+          backgroundColor : 'rgba(0,0,0,0.2)'
+        }}></View>
+      </View>
+
+        <View style={{
+          gap : 8,
+          borderRadius : 16,
+          borderColor : 'rgba(0,0,0,0.1)',
+          backgroundColor : '#FAFAFA',
+          padding : 16,
+          borderWidth : 1
+        }}>
+
+        <View style={{
+          flexDirection : 'row',
+          justifyContent : 'space-between',
+          alignItems : 'center'
+        }}>
+            <Text style ={{
+              fontSize : 18,
+              fontWeight : '600'
+            }}>Slider</Text>
+
+            <View style={{
+              gap : 8,
+              flexDirection : 'row',
+              alignItems : 'center'
+            }}>
+              <Text style={{
+                color: 'rgba(0,0,0,0.5)',
+                padding : 4,
+                backgroundColor : '#fff',
+                borderRadius : 8,
+                borderWidth : 1,
+                borderColor : 'rgba(0,0,0,0.1)',
+              }}>{selectedKg}Kg</Text>
+
+              <Text style ={{
+              fontSize : 18,
+              fontWeight : '600'
+            }}>GHC {amount}</Text>
+            </View>
+        </View>
+
+            <Slider
+              style={{width: '100%', height: 40}}
+              minimumValue={0}
+              maximumValue={1}
+              minimumTrackTintColor="#000000"
+              maximumTrackTintColor='rgba(0,0,0,0.1)'
+              value={sliderValue}
+              onValueChange={handleSliderChange}
+              />
+
+            <View style ={{
+              flexDirection : 'row',
+              alignItems : 'center',
+              justifyContent : 'space-between'
+            }}>
+              <Text style={{
+                color: 'rgba(0,0,0,0.5)'
+              }}>Min < Text style={{
+                color: 'black'
+              }} >(2kg)</Text> </Text>
+
+              <Text style={{
+                color: 'rgba(0,0,0,0.5)'
+              }}>Min < Text style={{
+                color: 'black'
+              }} >(24kg)</Text> </Text>
+            </View>
+            <Text style={{
+                color: 'rgba(0,0,0,0.5)'
+              }} >Use the slider below to select the amount you'd like to fill your gas cylinder</Text>
+
+        </View>
+
+           
+
+
       <View style={styles.footer}>
         <Text style={{ fontWeight: '700', fontSize: 18 }}>Cost Summary</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -70,7 +183,7 @@ export default function Amount() {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ color: 'rgba(0, 0, 0, 0.60)' }}>Amount You Want To Buy</Text>
-          <Text>{amount ? `GHC ${amount}.00` : 'n/a'}</Text>
+          <Text>{amount ? `GHC ${amount}` : 'n/a'}</Text>
         </View>
         <View style={{ width: 'auto', height: 1, borderWidth: 1, borderColor: 'rgba(0, 0, 0, 0.10)' }}></View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -79,6 +192,7 @@ export default function Amount() {
         </View>
         <PrimaryButton title={'Continue'} 
         onPress={() => navigation.navigate('Payment', { offerName, offerPrice, totalCost, price, totalCost, amount })}
+        disabled={isButtonDisabled}
         />
       </View>
     </View>
@@ -87,7 +201,7 @@ export default function Amount() {
 
 const styles = StyleSheet.create({
   main: {
-    gap: 20,
+    gap: 16,
     flex: 1,
     backgroundColor: 'white',
     paddingHorizontal: 16,

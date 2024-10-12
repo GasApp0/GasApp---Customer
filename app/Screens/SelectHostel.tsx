@@ -24,16 +24,16 @@ export default function SelectHostel() {
   // Function to handle hostel selection
   const handleSelectHostel = (hostelId) => {
     const hostel = hostels.find(h => h.id === hostelId);
-    setSelectedHostel(hostel); // Save the selected hostel in context
+    setSelectedHostel(hostel); 
     setSelectedHostelId(hostelId);
   };
 
-  // Function to handle pressing Continue button
+  
   const handleContinue = () => {
     navigation.navigate('Home');
   };
 
-  // Enable Continue button only if a hostel is selected
+  
   const isButtonDisabled = !setSelectedHostel;
 
   return (
