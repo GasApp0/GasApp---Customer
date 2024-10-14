@@ -10,27 +10,23 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 export default function GeneralDetails() {
   const navigation = useNavigation();
 
-  // State variables for input fields
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+ 
 
-  // Refs for managing focus
+
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
   const phoneNumberRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
 
-  // Function to handle navigation to the next input field
+
   const handleNext = (nextRef) => {
     nextRef.current.focus();
   };
 
-  // Function to handle form submission
+ {/*}
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match');
@@ -58,7 +54,9 @@ export default function GeneralDetails() {
       console.error('Error signing up:', error);
       Alert.alert('Error', 'An error occurred while signing up. Please try again.');
     }
-  };
+  };*/}
+
+  const isButtonDisabled = firstName === '' && lastName === '' && email === '' 
 
   return (
     <View style={styles.container}>
@@ -67,7 +65,6 @@ export default function GeneralDetails() {
         <Text style={styles.headerTitle}>General Details</Text>
       </View>
 
-      <ScrollView style={styles.scrollContainer} bounces={false}>
       <Text style={styles.label}>First Name</Text>
       <TextInput
         style={styles.input}
@@ -96,39 +93,9 @@ export default function GeneralDetails() {
         returnKeyType="next"
         onSubmitEditing={() => handleNext(phoneNumberRef)}
       />
-      <Text style={styles.label}>Phone Number</Text>
-      <TextInput
-        ref={phoneNumberRef}
-        style={styles.input}
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-        keyboardType="phone-pad"
-        returnKeyType="next"
-        onSubmitEditing={() => handleNext(passwordRef)}
-      />
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        ref={passwordRef}
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Text style={styles.label}>Confirm Password</Text>
-      <TextInput
-        ref={confirmPasswordRef}
-        style={styles.input}
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
-       </ScrollView>
-      <PrimaryButton title="Next" onPress={handleSignUp} />
+     
+      <PrimaryButton title="Next" disabled={isButtonDisabled} onPress={() => navigation.navigate('SelectSchool')} />
       <View style={styles.text}>
-        <Text style={{ fontSize: 16, color: '#828282' }}>Are you new here?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <Text style={{ fontSize: 16 }}>Sign In</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );

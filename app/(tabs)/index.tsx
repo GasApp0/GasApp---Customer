@@ -8,7 +8,7 @@ export default function index() {
   return (
     <HostelProvider>
         <View style={styles.main}>
-            <SemesterOffer/>
+            <MainNav/>
         </View>
     </HostelProvider>
   );

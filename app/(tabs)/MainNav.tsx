@@ -9,8 +9,9 @@ import SelectCylinder from '../Screens/SelectCylinder';
 import ConfirmLocation from '../Screens/ConfirmLocation';
 import Amount from '../Screens/Amount';
 import Payment from '../Screens/Payment';
-import SignIn from '../Screens/SignIn';
+import PhoneNumber from '../Screens/PhoneNumber';
 import Tracker from '../Screens/Tracker';
+import SelectSchool from '../Screens/SelectSchool';
 import { FIREBASE_AUTH } from './../../firebaseConfig'; // Import auth from Firebase config
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -49,9 +50,10 @@ export default function MainNav() {
         <>
           <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
-          <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+          <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={{ headerShown: false }} />
           <Stack.Screen name="GeneralDetails" component={GeneralDetails} options={{ headerShown: false }} />
           <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
+          <Stack.Screen name="SelectSchool" component={SelectSchool} options={{ headerShown: false }} />
         </>
       )}
     </Stack.Navigator>

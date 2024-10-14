@@ -12,18 +12,7 @@ export default function Onboarding() {
   return (
     <View style={styles.main}>
         <View style={styles.main}>
-            <PrimaryButton title='Get Started' onPress={() => navigation.navigate('GeneralDetails')}/>
-            <View style={styles.text}>
-                <Text style={{
-                    fontSize : 16,
-                    color : '#828282'
-                }}>Already have an Account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                <Text style={{
-                    fontSize : 16,
-                }}>Sign In</Text>
-                </TouchableOpacity>
-            </View>
+            <PrimaryButton title='Get Started' onPress={() => navigation.navigate('PhoneNumber')}/>
         </View>
         
     </View>
@@ -33,7 +22,7 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   main: {
     position : 'static',
-    top : '74%',
+    top : '80%',
     justifyContent : 'center',
     gap : 12,
     paddingHorizontal : 12
