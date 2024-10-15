@@ -6,7 +6,7 @@ import SecondaryButton from '@/components/SecondaryButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Svg, { Path } from 'react-native-svg';
 
-export default function SemesterOffer() {
+export default function MonthlyOffer() {
   const [selectedMonths, setSelectedMonths] = useState([])
   const [offerDetails, setOfferDetails] = useState([])
 
@@ -101,14 +101,13 @@ export default function SemesterOffer() {
       <View style={{
         gap : 12
       }}>
-        <View style={{
-          padding: 16,
-          borderWidth : 1,
-          borderRadius : 16,
-          borderColor : 'rgba(0, 0, 0, 0.10)',
-          gap : 20,
-          backgroundColor : '#FAFAFA'
-        }}>
+        <View style={[
+          styles.wrapper,
+          {
+            borderColor: selectedMonths ? '#000' : 'rgba(0, 0, 0, 0.20)',
+            backgroundColor: selectedMonths ? '#fff' : '#F4F4F4',
+          },
+        ]}>
             <View style={{
                flexDirection : 'row',
               justifyContent : 'space-between',
@@ -356,6 +355,14 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0, 0, 0, 0.10)',
     backgroundColor: '#FAFAFA',
     flexDirection : 'row'
+  },
+  wrapper : {
+    padding: 16,
+    borderWidth : 1,
+    borderRadius : 16,
+    borderColor : 'rgba(0, 0, 0, 0.10)',
+    gap : 20,
+    
   }
   
 });

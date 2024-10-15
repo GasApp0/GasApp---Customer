@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MainNav from './MainNav'; // Assuming MainNav contains your app's navigation logic and screens
 import { HostelProvider } from '../Screens/HostelContext';
-import SemesterOffer from '../Screens/SemesterOffer';
+import SemesterOffer from '../Screens/MonthlyOffer';
 
 export default function index() {
   return (

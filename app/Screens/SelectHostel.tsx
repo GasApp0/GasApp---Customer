@@ -1,27 +1,58 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import PrimaryButton from '@/components/PrimaryButton';
 import BackButton from '@/components/BackButton';
 import Svg, { Path } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { HostelContext } from './HostelContext';
 
 const hostels = [
-  { id: '1', name: 'Evandy - Annex', latitude: 6.67815, longitude: -1.56287  },
-  { id: '2', name: 'Evandy - New Site', latitude: 5.6389, longitude: -0.1876  },
-  { id: '3', name: 'Evandy - Bomso', latitude: 6.67322, longitude: -1.55734  },
-  { id: '4', name: 'Victory Towers', latitude: 6.67618, longitude: -1.56236  },
-  { id: '5', name: 'Suncity Hostel', latitude: 6.68885, longitude: -1.55496  },
-  { id: '6', name: 'Adombi Hostel', latitude: 6.67224, longitude: -1.56094  },
-  { id: '7', name: 'Georgia Hostel', latitude: 6.68744, longitude: -1.55667  },
+  
+
+  { id: '10', schoolId: '2', name: 'Anodams Hostel', schoolName: 'UPSA' },
+  { id: '15', schoolId: '2', name: 'Bendavid Hostel', schoolName: 'UPSA' },
+  { id: '9', schoolId: '2', name: 'Campus Annex Student Hostel', schoolName: 'UPSA' },
+  { id: '20', schoolId: '2', name: 'Chief’s Palace Hostel', schoolName: 'UPSA' },
+  { id: '12', schoolId: '2', name: 'Chika Hostel', schoolName: 'UPSA' },
+  { id: '26', schoolId: '2', name: 'Goodwill hostel', schoolName: 'UPSA' },
+  { id: '16', schoolId: '2', name: 'Green Hostel', schoolName: 'UPSA' },
+  { id: '8', schoolId: '2', name: 'Heavens Gate Hostel', schoolName: 'UPSA' },
+  { id: '22', schoolId: '2', name: 'Henrich Hostel', schoolName: 'UPSA' },
+  { id: '7', schoolId: '2', name: 'Joy Hostel', schoolName: 'UPSA' },
+  { id: '2', schoolId: '2', name: 'Kitatsu Hostel', schoolName: 'UPSA' },
+  { id: '19', schoolId: '2', name: 'Lillypot Hostel', schoolName: 'UPSA' },
+  { id: '5', schoolId: '2', name: 'MB3 Hostel', schoolName: 'UPSA' },
+  { id: '4', schoolId: '2', name: 'Makasella Hostel', schoolName: 'UPSA' },
+  { id: '6', schoolId: '2', name: 'Makasella Hostel', schoolName: 'UPSA' },
+  { id: '11', schoolId: '2', name: 'New Century Hostel', schoolName: 'UPSA' },
+  { id: '13', schoolId: '2', name: 'Oasis Hostel', schoolName: 'UPSA' },
+  { id: '18', schoolId: '2', name: 'Paulino Hostel', schoolName: 'UPSA' },
+  { id: '17', schoolId: '2', name: 'Precious Hostel', schoolName: 'UPSA' },
+  { id: '3', schoolId: '2', name: 'Prestige Hostel', schoolName: 'UPSA' },
+  { id: '14', schoolId: '2', name: 'Student Hostel', schoolName: 'UPSA' },
+  { id: '21', schoolId: '2', name: 'Joe Hostel', schoolName: 'UPSA' },
+  { id: '23', schoolId: '2', name: 'West End Hostel', schoolName: 'UPSA' },
+
+  { id: '1', schoolId : '1',name: 'PUC - 1 ', schoolName : 'PUC'},
+  { id: '24', schoolId : '1',name: 'PUC - 2 ', schoolName : 'PUC'},
+  { id: '25', schoolId : '1',name: 'PUC - 2 ', schoolName : 'PUC'},
 ];
 
 export default function SelectHostel() {
   const navigation = useNavigation();
-  const { setSelectedHostel } = useContext(HostelContext); // Access context
+  const { setSelectedHostel } = useContext(HostelContext); 
   const [selectedHostelId, setSelectedHostelId] = useState('');
+  const [searchTerm, setSearchTerm] = useState('')
 
-  // Function to handle hostel selection
+  const route = useRoute()
+  const { schoolId } = route.params
+
+  const filteredHostels = hostels.filter(
+    (hostel) => 
+      hostel.schoolId === schoolId &&
+      hostel.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
+
   const handleSelectHostel = (hostelId) => {
     const hostel = hostels.find(h => h.id === hostelId);
     setSelectedHostel(hostel); 
@@ -34,7 +65,7 @@ export default function SelectHostel() {
   };
 
   
-  const isButtonDisabled = !setSelectedHostel;
+  const isButtonDisabled = !selectedHostelId;
 
   return (
     <View style={styles.main}>
@@ -42,8 +73,27 @@ export default function SelectHostel() {
         <BackButton onPress={() => navigation.goBack()} />
         <Text style={styles.headerTitle}>Select Hostel</Text>
       </View>
+      
+      <View style={styles.inputWrapper}>
+        <Text style={styles.label}>Search Hostel</Text>
+        <TextInput
+          style={[styles.input,
+            {
+              borderColor: searchTerm ? '#000' : 'rgba(0, 0, 0, 0.20)',
+              backgroundColor: searchTerm ? '#fff' : '#F4F4F4',
+            }
+          ]}
+          placeholder="Enter Name Of Hostel"
+          value={searchTerm}
+          onChangeText={setSearchTerm}
+          returnKeyType="done"
+          placeholderTextColor={'rgba(0,0,0,.5)'}
+        />
+      </View>
+
+      <ScrollView style={styles.scrollContainer} bounces={false}>
       <View style={styles.hostelWrapper}>
-        {hostels.map((hostel) => (
+        {filteredHostels.map((hostel) => (
           <TouchableOpacity
             key={hostel.id}
             style={[
@@ -63,8 +113,9 @@ export default function SelectHostel() {
           </TouchableOpacity>
         ))}
       </View>
+      </ScrollView>
       <View style={styles.footer}>
-        <PrimaryButton title="Continue" onPress={handleContinue} disabled={isButtonDisabled} />
+        <PrimaryButton title="Continue" onPress={() => navigation.navigate('Home')} disabled={isButtonDisabled} />
       </View>
     </View>
   );
@@ -81,6 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 12,
+    gap : '80%'
   },
   headerTitle: {
     fontSize: 20,
@@ -102,10 +154,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   selectedHostelContainer: {
-    borderColor: '#000', // Change to the color you want for selected hostels
+    borderColor: '#000', 
   },
   selectedHostelName: {
-    color: '#000', // Change to the text color you want for selected hostels
+    color: '#000', 
   },
   selectedIcon: {
     width: 24,
@@ -121,9 +173,30 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.20)',
+    paddingTop : 12
   },
   hostelName: {
     fontSize: 16,
     color: 'rgba(0, 0, 0, 0.60)',
   },
+  scrollContainer: {
+    maxHeight: '100%',
+    marginBottom : 88
+  },
+  inputWrapper: {
+    marginVertical: 8,
+  },
+  label: {
+    fontSize: 16,
+    color: 'rgba(0, 0, 0, 0.80)',
+    marginBottom: 8,
+  },
+  input: {
+    height: 50,
+    borderColor: 'rgba(0, 0, 0, 0.20)',
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: '#FAFAFA',
+  }
 });

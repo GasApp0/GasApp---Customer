@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import SplashScreen from '../Screens/SplashScreen';
 import Onboarding from '../Screens/Onboarding';
 import GeneralDetails from '../Screens/GeneralDetails';
@@ -12,50 +12,30 @@ import Payment from '../Screens/Payment';
 import PhoneNumber from '../Screens/PhoneNumber';
 import Tracker from '../Screens/Tracker';
 import SelectSchool from '../Screens/SelectSchool';
-import { FIREBASE_AUTH } from './../../firebaseConfig'; // Import auth from Firebase config
-import { onAuthStateChanged } from 'firebase/auth';
+import OTPVerification from '../Screens/OTPVerification';
+import Notification from '../Screens/Notification'
+import MonthlyOffer from '../Screens/MonthlyOffer';
 
 const Stack = createNativeStackNavigator();
-const InsideStack = createNativeStackNavigator();
-
-function Insidelayout() {
-  return (
-    <InsideStack.Navigator>
-      <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
-      <InsideStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <InsideStack.Screen name="SelectCylinder" component={SelectCylinder} options={{ headerShown: false }} />
-      <InsideStack.Screen name="ConfirmLocation" component={ConfirmLocation} options={{ headerShown: false }} />
-      <InsideStack.Screen name="Amount" component={Amount} options={{ headerShown: false }} />
-      <InsideStack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
-      <InsideStack.Screen name="Tracker" component={Tracker} options={{ headerShown: false }} />
-    </InsideStack.Navigator>
-  );
-}
 
 export default function MainNav() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (authUser) => {
-      setUser(authUser);
-    });
-    return unsubscribe;
-  }, []);
-
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
-      {user ? (
-        <Stack.Screen name="Insidelayout" component={Insidelayout} options={{ headerShown: false }} />
-      ) : (
-        <>
-          <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
-          <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={{ headerShown: false }} />
-          <Stack.Screen name="GeneralDetails" component={GeneralDetails} options={{ headerShown: false }} />
-          <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
-          <Stack.Screen name="SelectSchool" component={SelectSchool} options={{ headerShown: false }} />
-        </>
-      )}
+      <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
+      <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={{ headerShown: false }} />
+      <Stack.Screen name="OTPVerification" component={OTPVerification} options={{ headerShown: false }} />
+      <Stack.Screen name="GeneralDetails" component={GeneralDetails} options={{ headerShown: false }} />
+      <Stack.Screen name="SelectHostel" component={SelectHostel} options={{ headerShown: false }} />
+      <Stack.Screen name="SelectSchool" component={SelectSchool} options={{ headerShown: false }} />
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stack.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+      <Stack.Screen name="SelectCylinder" component={SelectCylinder} options={{ headerShown: false }} />
+      <Stack.Screen name="ConfirmLocation" component={ConfirmLocation} options={{ headerShown: false }} />
+      <Stack.Screen name="Amount" component={Amount} options={{ headerShown: false }} />
+      <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
+      <Stack.Screen name="Tracker" component={Tracker} options={{ headerShown: false }} />
+      <Stack.Screen name="MonthlyOffer" component={MonthlyOffer} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

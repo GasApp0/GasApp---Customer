@@ -15,7 +15,7 @@ const schools = [
 
   { id: '2', 
     name: 'The University of Professional Studies (UPSA)', 
-    location : 'Sowutuom, Greater Accra Region',
+    location : 'Madina, Greater Accra Region',
     img : require('./../../assets/images/UPSA.jpg')
   },
 
@@ -27,19 +27,19 @@ export default function SelectSchool() {
   const [selectedHostelId, setSelectedHostelId] = useState('');
 
 
-  const handleSelectHostel = (hostelId) => {
-    const school = schools.find(h => h.id === hostelId);
+  const handleSelectHostel = (schoolId) => {
+    const school = schools.find(h => h.id === schoolId);
     setSelectedHostel(school); 
-    setSelectedHostelId(hostelId);
+    setSelectedHostelId(schoolId);
   };
 
-  
+
   const handleContinue = () => {
-    navigation.navigate('Home');
+    navigation.navigate('SelectHostel', { schoolId : selectedHostelId});
   };
 
   
-  const isButtonDisabled = !setSelectedHostel;
+  const isButtonDisabled = !selectedHostelId;
 
   return (
     <View style={styles.main}>

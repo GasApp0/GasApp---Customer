@@ -60,7 +60,12 @@ const PhoneNumber = ({ navigation }) => {
 
           <Text style={styles.label}>Phone Number</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input,
+              {
+                borderColor: phoneNumber ? '#000' : 'rgba(0, 0, 0, 0.20)',
+                backgroundColor: phoneNumber ? '#fff' : '#F4F4F4',
+              }
+            ]}
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             keyboardType='numeric'
@@ -70,7 +75,7 @@ const PhoneNumber = ({ navigation }) => {
             returnKeyType="done"
             
           />
-          <PrimaryButton title='Sign In'  disabled={isButtonDisabled} onPress={() => navigation.navigate('GeneralDetails')} />
+          <PrimaryButton title='Sign In'  disabled={isButtonDisabled} onPress={() => navigation.navigate('OTPVerification')} />
           <View>
             <Text style={{
                 fontSize : 16,

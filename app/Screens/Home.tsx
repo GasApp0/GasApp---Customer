@@ -36,7 +36,7 @@ const inputFields = [
   title : 'Semester Offer',
   body : "Eliminate the stress of managing gas refills with GasApp's Semester Subscription Offer! Pay once at the start of the semester and get enough LPG to last the entire term. Enjoy convenient refills delivered directly to your doorstep whenever you need them.",
   price  :7,
-  route : 'SelectCylinder',
+  route : 'MonthlyOffer',
   }
 
 ];
@@ -75,14 +75,21 @@ export default function Home() {
             <View style ={{
           flexDirection : 'row',
           alignItems : 'center',
-          gap : 8
+          gap : 12
         }}>
           <View style={{
-            width : 40,
-            height : 40,
-            borderRadius : 40,
-            backgroundColor : '#f5f5f5f5'
-          }}></View>
+              padding : 8,
+              borderRadius : 8,
+              borderWidth : 1,
+              borderColor : 'rgba(0,0,0,.1)',
+              backgroundColor : '#fafafa'
+          }}>
+            <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <Path d="M3 7H21" stroke="black" stroke-opacity="1" stroke-width="2" stroke-linecap="round"/>
+              <Path d="M3 12H21" stroke="black" stroke-opacity="1" stroke-width="2" stroke-linecap="round"/>
+              <Path d="M3 17H21" stroke="black" stroke-opacity="1" stroke-width="2" stroke-linecap="round"/>
+            </Svg>
+          </View>
           <View style = {{
             flexDirection : 'column',
             gap : 4
@@ -96,15 +103,26 @@ export default function Home() {
             <Text style ={{
               fontSize : 12,
               color : '#4F4F4F)'
-            }}>Let’s fill your LPG for you in less that 5 minutes</Text>
+            }}>Let’s fill your LPG for you in less than 5 minutes</Text>
           </View>
             </View>
-
-            <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <Path d="M12.02 2.90997C8.71003 2.90997 6.02003 5.59997 6.02003 8.90997V11.8C6.02003 12.41 5.76003 13.34 5.45003 13.86L4.30003 15.77C3.59003 16.95 4.08003 18.26 5.38003 18.7C9.69003 20.14 14.34 20.14 18.65 18.7C19.86 18.3 20.39 16.87 19.73 15.77L18.58 13.86C18.28 13.34 18.02 12.41 18.02 11.8V8.90997C18.02 5.60997 15.32 2.90997 12.02 2.90997Z" stroke="#828282" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
-        <Path d="M13.87 3.2C13.56 3.11 13.24 3.04 12.91 3C11.95 2.88 11.03 2.95 10.17 3.2C10.46 2.46 11.18 1.94 12.02 1.94C12.86 1.94 13.58 2.46 13.87 3.2Z" stroke="#828282" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-        <Path d="M15.02 19.06C15.02 20.71 13.67 22.06 12.02 22.06C11.2 22.06 10.44 21.72 9.89999 21.18C9.35999 20.64 9.01999 19.88 9.01999 19.06" stroke="#828282" stroke-width="2" stroke-miterlimit="10"/>
-      </Svg>
+            <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+                <View style={{
+                  padding : 8,
+                  borderRadius : 8,
+                  borderWidth : 1,
+                  borderColor : 'rgba(0,0,0,.1)',
+                  backgroundColor : '#fafafa'
+                }}>
+                    <Svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <Path d="M12.02 2.90997C8.71003 2.90997 6.02003 5.59997 6.02003 8.90997V11.8C6.02003 12.41 5.76003 13.34 5.45003 13.86L4.30003 15.77C3.59003 16.95 4.08003 18.26 5.38003 18.7C9.69003 20.14 14.34 20.14 18.65 18.7C19.86 18.3 20.39 16.87 19.73 15.77L18.58 13.86C18.28 13.34 18.02 12.41 18.02 11.8V8.90997C18.02 5.60997 15.32 2.90997 12.02 2.90997Z" stroke="#000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+                      <Path d="M13.87 3.2C13.56 3.11 13.24 3.04 12.91 3C11.95 2.88 11.03 2.95 10.17 3.2C10.46 2.46 11.18 1.94 12.02 1.94C12.86 1.94 13.58 2.46 13.87 3.2Z" stroke="#000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                      <Path d="M15.02 19.06C15.02 20.71 13.67 22.06 12.02 22.06C11.2 22.06 10.44 21.72 9.89999 21.18C9.35999 20.64 9.01999 19.88 9.01999 19.06" stroke="#000" stroke-width="2" stroke-miterlimit="10"/>
+                    </Svg>
+                </View>
+            </TouchableOpacity>
+          
+           
 
       </View>
 

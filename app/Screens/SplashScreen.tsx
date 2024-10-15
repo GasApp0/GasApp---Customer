@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { FIREBASE_AUTH } from './../../firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+//import { FIREBASE_AUTH } from './../../firebaseConfig';
+//import { onAuthStateChanged } from 'firebase/auth';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onAuthStateChanged(FIREBASE_AUTH, (user) => {
-        if (user) {
-          navigation.navigate('Home');
-        } else {
+      //onAuthStateChanged(FIREBASE_AUTH, (user) => {
+       // if (user) {
+        //  navigation.navigate('Home');
+      //  } else {
           navigation.navigate('Onboarding');
-        }
-      });
+    //    }
+//});
     }, 2000);
 
     return () => clearTimeout(timer);
