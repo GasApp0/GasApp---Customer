@@ -6,25 +6,27 @@ import { useNavigation } from '@react-navigation/native';
 
 const inputFields = [
   { id: 1, 
-  svg: <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+  svg: 
+  <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <Path d="M17.91 11.22H14.82V4.02002C14.82 2.34002 13.91 2.00002 12.8 3.26002L12 4.17002L5.23001 11.87C4.30001 12.92 4.69001 13.78 6.09001 13.78H9.18001V20.98C9.18001 22.66 10.09 23 11.2 21.74L12 20.83L18.77 13.13C19.7 12.08 19.31 11.22 17.91 11.22Z" fill="#2231B9"/>
   </Svg>, 
   amount: 'GH12 /fill',
   title : 'Emergency Offer',
   body : "We understand that running out of LPG can be an unexpected hassle. That's why we're excited to introduce our Emergency LPG Refill Offer! Get your LPG cylinder delivered to your doorstep within 20 minutes, guaranteed!",
-  route : 'SelectCylinder',
+  route : 'SelectLocation',
   price : 12
   },
   
   { id: 2, 
-  svg: <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+  svg: 
+  <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
   <Path d="M21.56 11.2401L20.2 9.66006C19.94 9.36006 19.73 8.80006 19.73 8.40006V6.70006C19.73 5.64006 18.86 4.77006 17.8 4.77006H16.1C15.71 4.77006 15.14 4.56006 14.84 4.30006L13.26 2.94006C12.57 2.35006 11.44 2.35006 10.74 2.94006L9.17 4.31006C8.87 4.56006 8.3 4.77006 7.91 4.77006H6.18C5.12 4.77006 4.25 5.64006 4.25 6.70006V8.41006C4.25 8.80006 4.04 9.36006 3.79 9.66006L2.44 11.2501C1.86 11.9401 1.86 13.0601 2.44 13.7501L3.79 15.3401C4.04 15.6401 4.25 16.2001 4.25 16.5901V18.3001C4.25 19.3601 5.12 20.2301 6.18 20.2301H7.91C8.3 20.2301 8.87 20.4401 9.17 20.7001L10.75 22.0601C11.44 22.6501 12.57 22.6501 13.27 22.0601L14.85 20.7001C15.15 20.4401 15.71 20.2301 16.11 20.2301H17.81C18.87 20.2301 19.74 19.3601 19.74 18.3001V16.6001C19.74 16.2101 19.95 15.6401 20.21 15.3401L21.57 13.7601C22.15 13.0701 22.15 11.9301 21.56 11.2401ZM16.16 10.6101L11.33 15.4401C11.19 15.5801 11 15.6601 10.8 15.6601C10.6 15.6601 10.41 15.5801 10.27 15.4401L7.85 13.0201C7.56 12.7301 7.56 12.2501 7.85 11.9601C8.14 11.6701 8.62 11.6701 8.91 11.9601L10.8 13.8501L15.1 9.55006C15.39 9.26006 15.87 9.26006 16.16 9.55006C16.45 9.84006 16.45 10.3201 16.16 10.6101Z" fill="#52B922"/>
   </Svg>, 
   amount: 'GH10 /fill',
   title : 'Regular Offer',
   body : "Enjoy the convenience of having your LPG cylinder delivered to your home from 2pm to 4pm! We ensure timely deliveries so you can plan your day without any disruptions.",
   price: 10,
-  route : 'SelectCylinder',
+  route : 'SelectLocation',
   },
 
   { id: 3, 
@@ -36,7 +38,7 @@ const inputFields = [
   title : 'Semester Offer',
   body : "Eliminate the stress of managing gas refills with GasApp's Semester Subscription Offer! Pay once at the start of the semester and get enough LPG to last the entire term. Enjoy convenient refills delivered directly to your doorstep whenever you need them.",
   price  :7,
-  route : 'MonthlyOffer',
+  route : 'SelectLocation',
   }
 
 ];
@@ -46,20 +48,20 @@ export default function Home() {
 
   const [firstName, setFirstName] = useState('');
 
-  useEffect(() => {
-    async function fetchFirstName() {
-      try {
-        const storedFirstName = await AsyncStorage.getItem('firstName');
-        if (storedFirstName !== null) {
-          setFirstName(storedFirstName);
-        }
-      } catch (error) {
-        console.error('Error retrieving first name:', error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchFirstName() {
+  //     try {
+  //       const storedFirstName = await AsyncStorage.getItem('firstName');
+  //       if (storedFirstName !== null) {
+  //         setFirstName(storedFirstName);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error retrieving first name:', error);
+  //     }
+  //   }
 
-    fetchFirstName();
-  }, []);
+  //   fetchFirstName();
+  // }, []);
 
 
   

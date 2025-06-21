@@ -72,6 +72,7 @@ export default function GeneralDetails() {
         onChangeText={setFirstName}
         returnKeyType="next"
         onSubmitEditing={() => handleNext(lastNameRef)}
+        placeholder='Enter your first name'
       />
       <Text style={styles.label}>Last Name</Text>
       <TextInput
@@ -81,6 +82,7 @@ export default function GeneralDetails() {
         onChangeText={setLastName}
         returnKeyType="next"
         onSubmitEditing={() => handleNext(emailRef)}
+        placeholder=''
       />
       <Text style={styles.label}>Email</Text>
       <TextInput
@@ -92,9 +94,10 @@ export default function GeneralDetails() {
         autoCapitalize="none"
         returnKeyType="next"
         onSubmitEditing={() => handleNext(phoneNumberRef)}
+        placeholder=''
       />
      
-      <PrimaryButton title="Next" disabled={isButtonDisabled} onPress={() => navigation.navigate('SelectSchool')} />
+      <PrimaryButton title="Next" disabled={isButtonDisabled} onPress={() => navigation.navigate('OrderIDPage')} />
       <View style={styles.text}>
       </View>
     </View>

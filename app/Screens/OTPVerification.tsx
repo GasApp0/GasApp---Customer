@@ -79,7 +79,7 @@ const OTPVerification = ({ navigation, route }) => {
         ))}
       </View>
 
-      <PrimaryButton title="Verify" disabled={isButtonDisabled} onPress={() => navigation.navigate('SelectSchool')} />
+      <PrimaryButton title="Verify" disabled={isButtonDisabled} onPress={() => navigation.navigate('GeneralDetails')} />
 
       <View style={styles.resendContainer}>
         <Text style={styles.resendText}>Didn’t receive a code? </Text>
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 30,
     marginBottom: 12,
+    justifyContent: 'space-between'
   },
   input: {
     height: 50,

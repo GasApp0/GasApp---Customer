@@ -101,7 +101,7 @@ export default function SelectCylinder() {
         </View>
         <PrimaryButton
           title={'Continue'}
-          onPress={() => navigation.navigate('ConfirmLocation', { offerName, offerPrice, totalCost, price })}
+          onPress={() => navigation.navigate('SelectLocation', { offerName, offerPrice, totalCost, price })}
           disabled={isButtonDisabled}
         />
       </View>
