@@ -219,8 +219,7 @@ export default function Tracker() {
         <View style={{
          borderRadius : 24,
          marginTop : 70,
-       
-        height : 420
+         height : 420
       }}>
         {/*<MapView
         style={styles.map}

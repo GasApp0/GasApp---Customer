@@ -120,19 +120,19 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     flexDirection: 'row',
-    gap: 30,
+    // gap: 30,
     marginBottom: 12,
     justifyContent: 'space-between'
   },
   input: {
-    height: 50,
+    height: 60,
     borderColor: 'rgba(0, 0, 0, 0.20)',
     borderWidth: 1,
     padding: 8,
     borderRadius: 12,
     backgroundColor: '#FAFAFA',
     marginBottom: 16,
-    width: 50,
+    width: 80,
     textAlign: 'center',
     fontSize: 20,
     fontWeight: '700',
